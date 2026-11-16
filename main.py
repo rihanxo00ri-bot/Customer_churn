@@ -1,10 +1,21 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel , computed_field, Field
 from typing import Literal
 import joblib
 import pandas as pd
 
 app = FastAPI()
+
+#enable COrs so your sepaate html/js file
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*']
+)
 
 model = joblib.load('model/churn_model.joblib')
 model_columns = joblib.load('model/model_columns.joblib')
